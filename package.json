@@ -1,0 +1,27 @@
+{
+  "name": "my-github-app",
+  "version": "1.0.0",
+  "description": "This is my first github repository for a GitHub App.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/abhaymajhi1106/my-github-app.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/abhaymajhi1106/my-github-app/issues"
+  },
+  "homepage": "https://github.com/abhaymajhi1106/my-github-app#readme",
+  "dependencies": {
+    "dotenv": "^17.2.0",
+    "ejs": "^3.1.10",
+    "express": "^5.1.0",
+    "mongoose": "^8.16.3"
+  }
+}

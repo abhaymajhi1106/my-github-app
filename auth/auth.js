@@ -14,6 +14,7 @@ return jwt.sign({
 const getUser = (token) => {
 return jwt.verify(token, secret);
 }
+
 //exports module
 module.exports = {
     setUser,

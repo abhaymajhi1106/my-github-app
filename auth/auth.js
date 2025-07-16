@@ -1,6 +1,6 @@
 //require packages
 const jwt = require("jsonwebtoken");
-const secret = "Abhay2004@";
+const secret = process.env.JWT_SECRET || "Abhay2004@";
 
 //create setUser function
 const setUser = (user) => {

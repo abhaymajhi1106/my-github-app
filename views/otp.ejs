@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OTP Verification</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .otp-container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 3rem;
+            width: 100%;
+            max-width: 450px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+            animation: slideInUp 0.8s ease-out;
+            text-align: center;
+        }
+
+        .otp-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            animation: pulse 2s infinite;
+        }
+
+        .otp-title {
+            color: white;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .otp-subtitle {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1rem;
+            margin-bottom: 2rem;
+            line-height: 1.5;
+        }
+
+        .otp-form {
+            margin-bottom: 2rem;
+        }
+
+        .otp-input {
+            width: 100%;
+            padding: 1.2rem;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 600;
+            text-align: center;
+            letter-spacing: 0.5rem;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            margin-bottom: 2rem;
+        }
+
+        .otp-input:focus {
+            outline: none;
+            border-color: rgba(255, 255, 255, 0.7);
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .otp-input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+            letter-spacing: normal;
+        }
+
+        .verify-btn {
+            width: 100%;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 12px;
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .verify-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            border-color: rgba(255, 255, 255, 0.5);
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .verify-btn:active {
+            transform: translateY(-1px);
+        }
+
+        .resend-section {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .resend-text {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .resend-link {
+            color: lightseagreen;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 0.5rem 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .resend-link:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.5);
+            transform: translateY(-2px);
+        }
+
+        /* Loading animation */
+        .verify-btn:hover::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            animation: shimmer 1.5s infinite;
+        }
+
+        @keyframes shimmer {
+            0% {
+                left: -100%;
+            }
+            100% {
+                left: 100%;
+            }
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .otp-container {
+                padding: 2rem;
+                margin: 1rem;
+            }
+
+            .otp-title {
+                font-size: 2rem;
+            }
+
+            .otp-subtitle {
+                font-size: 0.9rem;
+            }
+
+            .otp-input {
+                font-size: 1.3rem;
+                padding: 1rem;
+            }
+
+            .verify-btn {
+                padding: 0.9rem;
+                font-size: 1rem;
+            }
+
+            .otp-icon {
+                font-size: 3rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .otp-container {
+                padding: 1.5rem;
+                border-radius: 16px;
+            }
+
+            .otp-title {
+                font-size: 1.8rem;
+            }
+
+            .otp-subtitle {
+                font-size: 0.85rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .otp-input {
+                font-size: 1.2rem;
+                padding: 0.9rem;
+                letter-spacing: 0.3rem;
+            }
+
+            .verify-btn {
+                padding: 0.8rem;
+                font-size: 0.95rem;
+            }
+
+            .otp-icon {
+                font-size: 2.5rem;
+            }
+
+            .resend-section {
+                margin-top: 1.5rem;
+                padding-top: 1.5rem;
+            }
+
+            .resend-text {
+                font-size: 0.85rem;
+            }
+        }
+
+        /* Enhanced focus states for accessibility */
+        .otp-input:focus {
+            outline: 2px solid rgba(255, 255, 255, 0.5);
+            outline-offset: 2px;
+        }
+
+        .verify-btn:focus {
+            outline: 2px solid rgba(255, 255, 255, 0.5);
+            outline-offset: 2px;
+        }
+    </style>
+</head>
+<body>
+    <div class="otp-container">
+        <div class="otp-icon">🔐</div>
+        <h1 class="otp-title">Verify OTP</h1>
+        <p class="otp-subtitle">
+            We've sent a verification code to your registered email/phone. 
+            Please enter the code below.
+        </p>
+        
+        <form class="otp-form" action="/otp" method="post">
+            <input type="text" name="otp" class="otp-input" placeholder="Enter OTP" required>
+            <button type="submit" class="verify-btn">Verify OTP</button>
+        </form>
+
+        <form action="/resend-otp" method="post">
+          <div class="resend-section">
+            <p class="resend-text">Didn't receive the code?</p>
+            <button class="resend-link" type="submit">Resend OTP</button>
+          </div>
+        </form>
+    </div>
+</body>
+</html>

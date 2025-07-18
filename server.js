@@ -8,6 +8,7 @@ const cookieParser = require("cookie-parser");
 const homeRoute = require("./routes/home_route");
 const signupRoute = require("./routes/signup_route");
 const loginRoute = require("./routes/login_route");
+const verifyOtpRoute = require("./routes/otp_route");
 const app = express();
 
 //add mongo connection
@@ -23,6 +24,8 @@ app.set("view engine", "ejs");
 app.set("views", path.resolve("./views"));
 
 //add route
+app.use("/resend-otp", resendOtpRoute);
+app.use("/otp", verifyOtpRoute);
 app.use("/login", loginRoute);
 app.use("/signup", signupRoute);
 app.use("/", restrictToUserLoggedIn , homeRoute);

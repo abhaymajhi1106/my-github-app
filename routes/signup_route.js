@@ -10,14 +10,15 @@ router.route("/").get((req, res) => {
     return res.render("signup.ejs");
 }).post(async (req, res) => {
     const body = req.body;
+    const otp = await otpGen();
     const user = await USERS.create({
         username: body.username,
         email: body.email,
         password: body.password,
+        verifyOtp: otp,
       });
 
   if(user) {
-    const otp = await otpGen();
     const mailBox = await transporter.sendMail({
        from: "abhaymajhi1106@gmail.com",
        to: user.email,
@@ -38,7 +39,7 @@ router.route("/").get((req, res) => {
 if(mailBox) console.log("Verification OTP sent successfully");
 else console.log("Error form server", err);
 
-return res.redirect("/login");
+return res.redirect("/otp");
   }
 
 });
